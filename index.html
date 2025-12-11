@@ -650,94 +650,94 @@
                 { name: 'Tokyu Stay 天神', amount: 279693, category: 'stay', date: '2025-12-18' },
             ]);
 
-            // --- 行程資料 (依指示修正順序) ---
+ // --- 行程資料 (已更新：依據九州實際路況估算交通時間) ---
             const itineraryData = ref([
-                // Day 1: 12/13 (六) 
+                // Day 1: 12/13 (六) 福岡抵達
                 [
                     { id: 101, category: 'flight', startTime: '06:00', hours: '08:00 - 11:15', name: '前往機場 (桃園 TPE)', note: '飛機 08:00 TPE ~ 11:15 FUK ', transportType: 'flight' },
-                    { id: 102, category: 'transport', startTime: '10:00', hours: '10:00 - 11:00', name: '抵達福岡 & 放行李', address: 'Cross Life 博多柳橋', note: '機場搭地鐵往市區 (渡邊通站) ', transportType: 'public' },
-                    { id: 103, category: 'food', startTime: '13:00', hours: '13:00 - 14:00', name: '午餐: The Full Full Hakata', note: '明太子法國麵包 ', transportType: 'walk' },
-                    { id: 104, category: 'sightseeing', startTime: '14:00', hours: '14:00 - 16:00', name: '福岡市區逛街', note: '博多運河城 (MUJI、一番賞)、櫛田神社、麵包超人博物館 ', transportType: 'walk' },
-                    { id: 105, category: 'food', startTime: '17:00', hours: '17:00 - 18:00', name: '晚餐: 華美鳥水炊鍋', note: '已預約 17:00 ', transportType: 'walk' },
-                    { id: 106, category: 'food', startTime: '19:00', hours: '19:00 - 20:00', name: '宵夜: ShinShin / 大砲 / 屋台', note: '推薦拉麵與屋台體驗 ', transportType: 'walk' },
+                    { id: 102, category: 'transport', startTime: '10:00', hours: '10:00 - 11:00', name: '抵達福岡 & 放行李', address: 'Cross Life 博多柳橋', note: '機場搭地鐵往市區 (渡邊通站) ', transportType: 'public', travelTime: '約 30 分鐘 (地鐵)' },
+                    { id: 103, category: 'food', startTime: '13:00', hours: '13:00 - 14:00', name: '午餐: The Full Full Hakata', note: '明太子法國麵包 ', transportType: 'walk', travelTime: '約 15 分鐘 (步行)' },
+                    { id: 104, category: 'sightseeing', startTime: '14:00', hours: '14:00 - 16:00', name: '福岡市區逛街', note: '博多運河城 (MUJI、一番賞)、櫛田神社、麵包超人博物館 ', transportType: 'walk', travelTime: '約 10 分鐘 (步行)' },
+                    { id: 105, category: 'food', startTime: '17:00', hours: '17:00 - 18:00', name: '晚餐: 華美鳥水炊鍋', note: '已預約 17:00 ', transportType: 'walk', travelTime: '約 15 分鐘 (步行)' },
+                    { id: 106, category: 'food', startTime: '19:00', hours: '19:00 - 20:00', name: '宵夜: ShinShin / 大砲 / 屋台', note: '推薦拉麵與屋台體驗 ', transportType: 'walk', travelTime: '約 10 分鐘 (步行)' },
                 ],
-                // Day 2: 12/14 (日) 
+                // Day 2: 12/14 (日) 福岡 -> 熊本 (開始自駕)
                 [
-                    { id: 201, category: 'transport', startTime: '08:00', hours: '08:00 - 09:00', name: '租車 (天神渡邊通店)', address: '天神渡邊通店', note: 'Mapcode: 13 318 076*06\n08:00 取車 ', transportType: 'car' },
-                    { id: 202, category: 'sightseeing', startTime: '09:00', hours: '09:00 - 11:00', name: '開車行程 (賞楓/銀杏)', note: '太原銀杏森林 (37 292 372*68)\n秋月城跡 (55 173 471*74) ', transportType: 'car' },
-                    { id: 203, category: 'food', startTime: '12:00', hours: '12:00 - 13:00', name: '午餐: 勝烈亭 豬排', note: 'Mapcode: 29 459 389*34 ', transportType: 'car' },
-                    { id: 204, category: 'sightseeing', startTime: '14:00', hours: '14:00 - 15:00', name: '熊本城 + 城彩苑', note: 'Mapcode: 29 489 329*60 ', transportType: 'walk' },
-                    { id: 205, category: 'shopping', startTime: '15:00', hours: '15:00 - 16:00', name: '市區逛街 & 喫茶室', note: '上下通商店街、長崎次郎喫茶室 (29 458 566*01) ', transportType: 'walk' },
-                    { id: 206, category: 'food', startTime: '18:00', hours: '18:00 - 19:30', name: '晚餐: 和牛塔卡 (LIEBE)', note: '已訂位 18:30\nMapcode: 29 460 452*38 ', transportType: 'car' },
-                    { id: 207, category: 'accommodation', startTime: '20:00', name: '住宿: 日航熊本', note: 'Mapcode: 29 490 018*61 ', transportType: 'car' }
+                    { id: 201, category: 'transport', startTime: '08:00', hours: '08:00 - 09:00', name: '租車 (天神渡邊通店)', address: '天神渡邊通店', note: 'Mapcode: 13 318 076*06\n08:00 取車 ', transportType: 'walk', travelTime: '約 10 分鐘 (步行)' },
+                    { id: 202, category: 'sightseeing', startTime: '09:00', hours: '09:00 - 11:00', name: '開車行程 (賞楓/銀杏)', note: '太原銀杏森林 (37 292 372*68)\n秋月城跡 (55 173 471*74) ', transportType: 'car', travelTime: '約 50 分鐘 (車)' },
+                    { id: 203, category: 'food', startTime: '12:00', hours: '12:00 - 13:00', name: '午餐: 勝烈亭 豬排', note: 'Mapcode: 29 459 389*34 ', transportType: 'car', travelTime: '約 90 分鐘 (高速)' },
+                    { id: 204, category: 'sightseeing', startTime: '14:00', hours: '14:00 - 15:00', name: '熊本城 + 城彩苑', note: 'Mapcode: 29 489 329*60 ', transportType: 'walk', travelTime: '約 10 分鐘 (車)' },
+                    { id: 205, category: 'shopping', startTime: '15:00', hours: '15:00 - 16:00', name: '市區逛街 & 喫茶室', note: '上下通商店街、長崎次郎喫茶室 (29 458 566*01) ', transportType: 'walk', travelTime: '約 10 分鐘 (步行)' },
+                    { id: 206, category: 'food', startTime: '18:00', hours: '18:00 - 19:30', name: '晚餐: 和牛塔卡 (LIEBE)', note: '已訂位 18:30\nMapcode: 29 460 452*38 ', transportType: 'car', travelTime: '約 15 分鐘 (車)' },
+                    { id: 207, category: 'accommodation', startTime: '20:00', name: '住宿: 日航熊本', note: 'Mapcode: 29 490 018*61 ', transportType: 'car', travelTime: '約 10 分鐘 (車)' }
                 ],
-                // Day 3: 12/15 (一) 
+                // Day 3: 12/15 (一) 熊本 -> 高千穗 -> 黑川 (山路多)
                 [
                     { id: 301, category: 'other', startTime: '06:00', name: '備註: 確認高千穗划船狀況', note: '確認運行狀況 ', transportType: 'car' },
-                    { id: 302, category: 'sightseeing', startTime: '09:00', hours: '09:00 - 10:30', name: '天岩戶神社', note: 'Mapcode: 330 837 641*24 ', transportType: 'car' },
-                    { id: 303, category: 'food', startTime: '11:00', hours: '11:00 - 12:00', name: '午餐: 高千穗牛_和', note: 'Mapcode: 330 742 450*53 ', transportType: 'car' },
-                    { id: 304, category: 'sightseeing', startTime: '12:00', hours: '12:00 - 13:00', name: '高千穗峽 (划船)', note: '預約 12:00\nMapcode: 330 711 671*87 ', transportType: 'car' },
-                    { id: 305, category: 'transport', startTime: '13:00', hours: '13:00 - 14:30', name: '前往上色見', note: '約 1 小時車程 ', transportType: 'car' },
-                    { id: 306, category: 'sightseeing', startTime: '14:30', hours: '14:30 - 15:30', name: '上色見熊野座神社', note: 'Mapcode: 256 379 371*35 ', transportType: 'car' },
-                    { id: 307, category: 'food', startTime: '18:00', hours: '18:00 - 19:00', name: '晚餐: 飯店懷石料理', note: '18:30 用餐 ', transportType: 'walk' },
-                    { id: 308, category: 'sightseeing', startTime: '19:00', hours: '19:00 - 20:00', name: '黑川溫泉街散策', note: '推薦: Patisserie Roku 泡芙 ', transportType: 'walk' },
-                    { id: 309, category: 'accommodation', startTime: '20:00', name: '住宿: 山しのぶ', note: 'Mapcode: 440 540 236*68 ', transportType: 'car' }
+                    { id: 302, category: 'sightseeing', startTime: '09:00', hours: '09:00 - 10:30', name: '天岩戶神社', note: 'Mapcode: 330 837 641*24 ', transportType: 'car', travelTime: '約 1小時45分 (山路)' },
+                    { id: 303, category: 'food', startTime: '11:00', hours: '11:00 - 12:00', name: '午餐: 高千穗牛_和', note: 'Mapcode: 330 742 450*53 ', transportType: 'car', travelTime: '約 15 分鐘 (車)' },
+                    { id: 304, category: 'sightseeing', startTime: '12:00', hours: '12:00 - 13:00', name: '高千穗峽 (划船)', note: '預約 12:00\nMapcode: 330 711 671*87 ', transportType: 'car', travelTime: '約 10 分鐘 (車)' },
+                    { id: 305, category: 'transport', startTime: '13:00', hours: '13:00 - 14:30', name: '前往上色見', note: '約 1 小時車程 ', transportType: 'car', travelTime: '約 55 分鐘 (山路)' },
+                    { id: 306, category: 'sightseeing', startTime: '14:30', hours: '14:30 - 15:30', name: '上色見熊野座神社', note: 'Mapcode: 256 379 371*35 ', transportType: 'car', travelTime: '抵達即開始' },
+                    { id: 307, category: 'food', startTime: '18:00', hours: '18:00 - 19:00', name: '晚餐: 飯店懷石料理', note: '18:30 用餐 ', transportType: 'car', travelTime: '約 50 分鐘 (往黑川)' },
+                    { id: 308, category: 'sightseeing', startTime: '19:00', hours: '19:00 - 20:00', name: '黑川溫泉街散策', note: '推薦: Patisserie Roku 泡芙 ', transportType: 'walk', travelTime: 'Check-in 後步行' },
+                    { id: 309, category: 'accommodation', startTime: '20:00', name: '住宿: 山しのぶ', note: 'Mapcode: 440 540 236*68 ', transportType: 'car', travelTime: '位於溫泉區旁' }
                 ],
-                // Day 4: 12/16 (二) 
+                // Day 4: 12/16 (二) 黑川 -> 阿蘇 -> 別府 (最美公路)
                 [
                     { id: 401, category: 'other', startTime: '06:00', name: '備註: 確認阿蘇火山開放', note: '確認開放狀況 ', transportType: 'car' },
-                    { id: 402, category: 'sightseeing', startTime: '09:00', hours: '09:00 - 11:00', name: '阿蘇火山口', note: '可搭直升機\nMapcode: 256 460 704*02 ', transportType: 'car' },
-                    { id: 403, category: 'sightseeing', startTime: '12:00', hours: '12:00 - 13:30', name: '午餐 & 草千里', note: '騎馬/散步 ', transportType: 'car' },
-                    { id: 404, category: 'sightseeing', startTime: '14:00', hours: '14:00 - 15:00', name: '阿蘇神社', note: '吃阿蘇牛奶、泡芙\nMapcode: 256 704 305*31 ', transportType: 'car' },
-                    { id: 405, category: 'transport', startTime: '15:00', hours: '15:00 - 17:00', name: '前往別府', note: '途經 九重夢大橋 / 長者原道標 ', transportType: 'car' },
-                    { id: 406, category: 'food', startTime: '17:00', hours: '17:00 - 18:00', name: '晚餐: 天婦羅 とよ常', note: 'Mapcode: 46 405 225*67 ', transportType: 'car' },
-                    { id: 407, category: 'accommodation', startTime: '19:00', name: '住宿: AMANEK BEPPU', note: 'Mapcode: 46 405 228*51 ', transportType: 'car' }
+                    { id: 402, category: 'sightseeing', startTime: '09:00', hours: '09:00 - 11:00', name: '阿蘇火山口', note: '可搭直升機\nMapcode: 256 460 704*02 ', transportType: 'car', travelTime: '約 50 分鐘 (山路)' },
+                    { id: 403, category: 'sightseeing', startTime: '12:00', hours: '12:00 - 13:30', name: '午餐 & 草千里', note: '騎馬/散步 ', transportType: 'car', travelTime: '約 5 分鐘 (車)' },
+                    { id: 404, category: 'sightseeing', startTime: '14:00', hours: '14:00 - 15:00', name: '阿蘇神社', note: '吃阿蘇牛奶、泡芙\nMapcode: 256 704 305*31 ', transportType: 'car', travelTime: '約 25 分鐘 (下山)' },
+                    { id: 405, category: 'transport', startTime: '15:00', hours: '15:00 - 17:00', name: '前往別府', note: '途經 九重夢大橋 / 長者原道標 ', transportType: 'car', travelTime: '約 90 分鐘 (山脈公路)' },
+                    { id: 406, category: 'food', startTime: '17:00', hours: '17:00 - 18:00', name: '晚餐: 天婦羅 とよ常', note: 'Mapcode: 46 405 225*67 ', transportType: 'car', travelTime: '抵達別府市區' },
+                    { id: 407, category: 'accommodation', startTime: '19:00', name: '住宿: AMANEK BEPPU', note: 'Mapcode: 46 405 228*51 ', transportType: 'car', travelTime: '約 5 分鐘 (車)' }
                 ],
-                // Day 5: 12/17 (三) 
+                // Day 5: 12/17 (三) 別府/由布院 (注意折返跑)
                 [
-                    { id: 501, category: 'food', startTime: '07:00', hours: '07:00 - 08:30', name: '早餐: Cafe La Ruche', note: '金鱗湖畔\nMapcode: 269 359 616*04 ', transportType: 'car' },
-                    { id: 502, category: 'sightseeing', startTime: '09:00', hours: '09:00 - 10:30', name: '別府地獄巡遊', note: '吃地獄蒸布丁\nMapcode: 46 521 469*64 ', transportType: 'car' },
-                    { id: 503, category: 'sightseeing', startTime: '10:30', hours: '10:30 - 11:30', name: '狭霧台 (眺望由布院)', note: 'Mapcode: 46 301 725*70 ', transportType: 'car' },
-                    { id: 504, category: 'food', startTime: '12:00', hours: '12:00 - 13:00', name: '午餐: 布釜飯 / 蕎麥麵', note: '由布まぶし 心 或 手打蕎麥麵 泉 ', transportType: 'car' },
-                    { id: 505, category: 'sightseeing', startTime: '13:00', hours: '13:00 - 15:30', name: '由布院散策', note: '金鱗湖、花卉村、B-speak ', transportType: 'walk' },
-                    { id: 506, category: 'food', startTime: '17:00', hours: '17:00 - 18:30', name: '晚餐: 海鮮いづつ', note: '別府市區海鮮\nMapcode: 46 375 716*53 ', transportType: 'car' },
-                    { id: 507, category: 'sightseeing', startTime: '19:00', hours: '19:00 - 20:00', name: '湯霧展望台 (夜景)', note: 'Mapcode: 46 523 435*11 ', transportType: 'car' },
-                    { id: 508, category: 'accommodation', startTime: '20:30', name: '住宿: AMANEK BEPPU', note: '續住 ', transportType: 'car' }
+                    { id: 501, category: 'food', startTime: '07:00', hours: '07:00 - 08:30', name: '早餐: Cafe La Ruche', note: '金鱗湖畔\nMapcode: 269 359 616*04 ', transportType: 'car', travelTime: '約 40 分鐘 (別府往由布院)' },
+                    { id: 502, category: 'sightseeing', startTime: '09:00', hours: '09:00 - 10:30', name: '別府地獄巡遊', note: '吃地獄蒸布丁\nMapcode: 46 521 469*64 ', transportType: 'car', travelTime: '約 35 分鐘 (折返別府)' },
+                    { id: 503, category: 'sightseeing', startTime: '10:30', hours: '10:30 - 11:30', name: '狭霧台 (眺望由布院)', note: 'Mapcode: 46 301 725*70 ', transportType: 'car', travelTime: '約 15 分鐘 (山路)' },
+                    { id: 504, category: 'food', startTime: '12:00', hours: '12:00 - 13:00', name: '午餐: 布釜飯 / 蕎麥麵', note: '由布まぶし 心 或 手打蕎麥麵 泉 ', transportType: 'car', travelTime: '約 15 分鐘 (下山)' },
+                    { id: 505, category: 'sightseeing', startTime: '13:00', hours: '13:00 - 15:30', name: '由布院散策', note: '金鱗湖、花卉村、B-speak ', transportType: 'walk', travelTime: '步行逛街' },
+                    { id: 506, category: 'food', startTime: '17:00', hours: '17:00 - 18:30', name: '晚餐: 海鮮いづつ', note: '別府市區海鮮\nMapcode: 46 375 716*53 ', transportType: 'car', travelTime: '約 45 分鐘 (回別府)' },
+                    { id: 507, category: 'sightseeing', startTime: '19:00', hours: '19:00 - 20:00', name: '湯霧展望台 (夜景)', note: 'Mapcode: 46 523 435*11 ', transportType: 'car', travelTime: '約 15 分鐘 (車)' },
+                    { id: 508, category: 'accommodation', startTime: '20:30', name: '住宿: AMANEK BEPPU', note: '續住 ', transportType: 'car', travelTime: '約 15 分鐘 (下山)' }
                 ],
-                // Day 6: 12/18 (四) 
+                // Day 6: 12/18 (四) 別府 -> 動物園 -> 福岡
                 [
-                    { id: 601, category: 'sightseeing', startTime: '09:00', hours: '09:00 - 13:00', name: '九州自然動物園', note: 'Mapcode: 46 634 658*87\n叢林巴士 ', transportType: 'car' },
-                    { id: 602, category: 'sightseeing', startTime: '13:00', hours: '13:00 - 14:00', name: '別府纜車 (備選)', note: 'Mapcode: 46 369 844*81 ', transportType: 'car' },
-                    { id: 603, category: 'transport', startTime: '14:00', hours: '14:00 - 16:30', name: '開車返回福岡', note: '返回市區 ', transportType: 'car' },
-                    { id: 604, category: 'transport', startTime: '17:00', hours: '17:00 - 18:00', name: '還車 (天神渡邊通店)', note: '20:00 前需還車 ', transportType: 'car' },
-                    { id: 605, category: 'food', startTime: '18:00', hours: '18:00 - 20:00', name: '晚餐: 博多牛腸鍋', note: '天神周邊自由覓食 ', transportType: 'walk' },
-                    { id: 606, category: 'accommodation', startTime: '20:00', name: '住宿: Tokyu Stay 天神', note: 'Mapcode: 13 318 296*24 ', transportType: 'walk' }
+                    { id: 601, category: 'sightseeing', startTime: '09:00', hours: '09:00 - 13:00', name: '九州自然動物園', note: 'Mapcode: 46 634 658*87\n叢林巴士 ', transportType: 'car', travelTime: '約 30 分鐘 (車)' },
+                    { id: 602, category: 'sightseeing', startTime: '13:00', hours: '13:00 - 14:00', name: '別府纜車 (備選)', note: 'Mapcode: 46 369 844*81 ', transportType: 'car', travelTime: '約 25 分鐘 (車)' },
+                    { id: 603, category: 'transport', startTime: '14:00', hours: '14:00 - 16:30', name: '開車返回福岡', note: '返回市區 ', transportType: 'car', travelTime: '約 2 小時 (高速)' },
+                    { id: 604, category: 'transport', startTime: '17:00', hours: '17:00 - 18:00', name: '還車 (天神渡邊通店)', note: '20:00 前需還車 ', transportType: 'car', travelTime: '市區塞車緩衝' },
+                    { id: 605, category: 'food', startTime: '18:00', hours: '18:00 - 20:00', name: '晚餐: 博多牛腸鍋', note: '天神周邊自由覓食 ', transportType: 'walk', travelTime: '約 10 分鐘 (步行)' },
+                    { id: 606, category: 'accommodation', startTime: '20:00', name: '住宿: Tokyu Stay 天神', note: 'Mapcode: 13 318 296*24 ', transportType: 'walk', travelTime: '約 5 分鐘 (步行)' }
                 ],
-                // Day 7: 12/19 (五) 
+                // Day 7: 12/19 (五) 門司港 (大眾運輸)
                 [
-                    { id: 701, category: 'transport', startTime: '08:00', hours: '08:00 - 09:30', name: '前往門司港 (JR)', note: '博多 > 小倉 > 門司港 ', transportType: 'public' },
-                    { id: 702, category: 'sightseeing', startTime: '10:00', hours: '10:00 - 12:00', name: '門司港懷舊區', note: '車站、舊門司稅關、藍翼橋 ', transportType: 'walk' },
-                    { id: 703, category: 'food', startTime: '12:00', hours: '12:00 - 13:00', name: '午餐: 伽哩本舖', note: '燒咖哩 ', transportType: 'walk' },
-                    { id: 704, category: 'sightseeing', startTime: '13:00', hours: '13:00 - 15:00', name: '小倉城 / 勝山公園', note: '賞楓 ', transportType: 'public' },
-                    { id: 705, category: 'food', startTime: '18:00', hours: '18:00 - 19:30', name: '晚餐: 鰻魚 田舍庵', note: '小倉百年老店 ', transportType: 'walk' },
-                    { id: 706, category: 'accommodation', startTime: '20:00', name: '住宿: Tokyu Stay 天神', note: '續住 ', transportType: 'public' }
+                    { id: 701, category: 'transport', startTime: '08:00', hours: '08:00 - 09:30', name: '前往門司港 (JR)', note: '博多 > 小倉 > 門司港 ', transportType: 'public', travelTime: '約 10 分鐘 (地鐵)' },
+                    { id: 702, category: 'sightseeing', startTime: '10:00', hours: '10:00 - 12:00', name: '門司港懷舊區', note: '車站、舊門司稅關、藍翼橋 ', transportType: 'walk', travelTime: '約 50 分鐘 (JR特急)' },
+                    { id: 703, category: 'food', startTime: '12:00', hours: '12:00 - 13:00', name: '午餐: 伽哩本舖', note: '燒咖哩 ', transportType: 'walk', travelTime: '約 5 分鐘 (步行)' },
+                    { id: 704, category: 'sightseeing', startTime: '13:00', hours: '13:00 - 15:00', name: '小倉城 / 勝山公園', note: '賞楓 ', transportType: 'public', travelTime: '約 20 分鐘 (JR)' },
+                    { id: 705, category: 'food', startTime: '18:00', hours: '18:00 - 19:30', name: '晚餐: 鰻魚 田舍庵', note: '小倉百年老店 ', transportType: 'walk', travelTime: '約 10 分鐘 (步行)' },
+                    { id: 706, category: 'accommodation', startTime: '20:00', name: '住宿: Tokyu Stay 天神', note: '續住 ', transportType: 'public', travelTime: '約 50 分鐘 (JR/新幹線)' }
                 ],
-                // Day 8: 12/20 (六) 
+                // Day 8: 12/20 (六) 太宰府 (大眾運輸)
                 [
-                    { id: 801, category: 'sightseeing', startTime: '09:00', hours: '09:00 - 11:00', name: '太宰府天滿宮', note: '光明禪寺、梅枝餅 ', transportType: 'public' },
-                    { id: 802, category: 'food', startTime: '12:00', hours: '12:00 - 13:00', name: '午餐: 明太子 神樂', note: '神楽 (かぐら) ', transportType: 'walk' },
-                    { id: 803, category: 'shopping', startTime: '14:00', hours: '14:00 - 17:00', name: 'TeamLab / 福岡塔', note: '沈浸式光影展 / 逛街 ', transportType: 'public' },
-                    { id: 804, category: 'food', startTime: '18:00', hours: '18:00 - 19:30', name: '晚餐: 燒肉 上', note: 'Yakiniku Jo ', transportType: 'walk' },
-                    { id: 805, category: 'accommodation', startTime: '20:00', name: '住宿: Tokyu Stay 天神', note: '續住 ', transportType: 'walk' }
+                    { id: 801, category: 'sightseeing', startTime: '09:00', hours: '09:00 - 11:00', name: '太宰府天滿宮', note: '光明禪寺、梅枝餅 ', transportType: 'public', travelTime: '約 45 分鐘 (西鐵巴士/電車)' },
+                    { id: 802, category: 'food', startTime: '12:00', hours: '12:00 - 13:00', name: '午餐: 明太子 神樂', note: '神楽 (かぐら) ', transportType: 'walk', travelTime: '參道步行' },
+                    { id: 803, category: 'shopping', startTime: '14:00', hours: '14:00 - 17:00', name: 'TeamLab / 福岡塔', note: '沈浸式光影展 / 逛街 ', transportType: 'public', travelTime: '約 50 分鐘 (巴士直達)' },
+                    { id: 804, category: 'food', startTime: '18:00', hours: '18:00 - 19:30', name: '晚餐: 燒肉 上', note: 'Yakiniku Jo ', transportType: 'walk', travelTime: '約 20 分鐘 (巴士)' },
+                    { id: 805, category: 'accommodation', startTime: '20:00', name: '住宿: Tokyu Stay 天神', note: '續住 ', transportType: 'walk', travelTime: '約 15 分鐘 (步行)' }
                 ],
-                // Day 9: 12/21 (日) 
+                // Day 9: 12/21 (日) 返台
                 [
-                    { id: 901, category: 'food', startTime: '06:00', hours: '06:00 - 08:00', name: '早餐巡禮', note: '大砲/一双/ShinShin ', transportType: 'walk' },
-                    { id: 902, category: 'food', startTime: '08:00', hours: '08:00 - 10:00', name: 'I\'m donut? / Dacomecca', note: '排隊名店 ', transportType: 'walk' },
-                    { id: 903, category: 'sightseeing', startTime: '10:00', hours: '10:00 - 12:00', name: '大濠公園 & LOCALS', note: '最後採買 (努努雞) ', transportType: 'walk' },
-                    { id: 904, category: 'food', startTime: '12:30', hours: '12:30 - 14:00', name: '午餐: 人形町今半', note: '壽喜燒 ', transportType: 'walk' },
-                    { id: 905, category: 'transport', startTime: '17:00', name: '前往機場 (FUK)', note: '準備返台 ', transportType: 'public' },
-                    { id: 906, category: 'flight', startTime: '20:55', name: '飛機起飛', note: '20:55 FUK ~ TPE ', transportType: 'flight' }
+                    { id: 901, category: 'food', startTime: '06:00', hours: '06:00 - 08:00', name: '早餐巡禮', note: '大砲/一双/ShinShin ', transportType: 'walk', travelTime: '起床出發' },
+                    { id: 902, category: 'food', startTime: '08:00', hours: '08:00 - 10:00', name: 'I\'m donut? / Dacomecca', note: '排隊名店 ', transportType: 'walk', travelTime: '約 10 分鐘 (步行)' },
+                    { id: 903, category: 'sightseeing', startTime: '10:00', hours: '10:00 - 12:00', name: '大濠公園 & LOCALS', note: '最後採買 (努努雞) ', transportType: 'walk', travelTime: '約 20 分鐘 (地鐵)' },
+                    { id: 904, category: 'food', startTime: '12:30', hours: '12:30 - 14:00', name: '午餐: 人形町今半', note: '壽喜燒 ', transportType: 'walk', travelTime: '約 20 分鐘 (地鐵)' },
+                    { id: 905, category: 'transport', startTime: '17:00', name: '前往機場 (FUK)', note: '準備返台 ', transportType: 'public', travelTime: '約 30 分鐘 (地鐵)' },
+                    { id: 906, category: 'flight', startTime: '20:55', name: '飛機起飛', note: '20:55 FUK ~ TPE ', transportType: 'flight', travelTime: 'Check-in 等候' }
                 ]
             ]);
             
