@@ -813,10 +813,33 @@
 
             // Helpers
             const formatNumber = (num) => num ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : '0';
-            // 修正後的地圖連結功能 (使用 Google Maps 標準搜尋網址)
-            const openMap = (q) => window.open(`https://www.google.com/maps/search/?api=1&query={encodeURIComponent(q)}`, '_blank');
-            const openMapDirections = (start, end) => {
-                 window.open(`https://maps.app.goo.gl/Qy5ezBjfML9jNUr58,SSR,漫畫商品3...{encodeURIComponent(start.address||start.name)}&destination=${encodeURIComponent(end.address||end.name)}`, '_blank');
+           // 修正後的地圖功能
+            
+            // 1. 單點導航：搜尋地點 (預設從使用者目前位置導航)
+            const openMap = (q) => {
+                if (!q) return;
+                // 使用 Google Maps 官方 Search API
+                window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`, '_blank');
+            };
+
+            // 2. 區間導航：自動帶入「起點」與「終點」並選擇交通方式
+            const openMapDirections = (startItem, endItem) => {
+                if (!startItem || !endItem) return;
+
+                // 優先使用地址，如果沒有地址則使用名稱
+                const origin = startItem.address || startItem.name;
+                const destination = endItem.address || endItem.name;
+
+                // 轉換交通方式對應 Google Maps 的參數
+                // car -> driving, walk -> walking, public -> transit
+                let mode = 'driving'; 
+                if (endItem.transportType === 'walk') mode = 'walking';
+                if (endItem.transportType === 'public' || endItem.transportType === 'flight') mode = 'transit';
+
+                // 組合 Google Maps Directions API 網址
+                const url = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&travelmode=${mode}`;
+                
+                window.open(url, '_blank');
             };
 
             // 圖示與樣式對應
