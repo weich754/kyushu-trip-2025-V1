@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>九州親子賞楓自駕行 2025</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'autumn-cream': '#FFF8E1',      // 溫暖奶油底色
+                        'maple-red': '#D32F2F',         // 楓葉紅 (強調/標題)
+                        'gingko-gold': '#FFA000',       // 銀杏黃 (按鈕/亮點)
+                        'earth-brown': '#5D4037',       // 大地褐 (文字/主要)
+                        'warm-orange': '#FF7043',       // 暖橙色 (輔助)
+                        'soft-beige': '#F5F5F5',        // 柔和米灰
+                        'matcha-green': '#558B2F',      // 抹茶綠 (自然景點)
+                    },
+                    animation: {
+                        'fall': 'fall 10s linear infinite',
+                        'sway': 'sway 3s ease-in-out infinite alternate',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        
+        body {
+            background-color: #FFF8E1; 
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #5D4037;
+        }
+
+        .app-container {
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background-color: #ffffff; 
+            box-shadow: 0 0 30px rgba(93, 64, 55, 0.1); /* 褐色陰影 */
+            position: relative;
+            padding-bottom: 90px;
+        }
+
+        /* Header 設定 */
+        .header-bg {
+            background-color: #ffffff;
+            padding: 0; 
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(211, 47, 47, 0.15); /* 紅色系陰影 */
+            border-bottom-left-radius: 35px; 
+            border-bottom-right-radius: 35px;
+            z-index: 10; 
+            padding-bottom: 0px; 
+        }
+        
+        .header-image-container {
+            width: 100%;
+            height: 250px; 
+            overflow: hidden;
+            background-color: #FFECB3; 
+            border-bottom-left-radius: 35px; 
+            border-bottom-right-radius: 35px;
+            position: relative;
+        }
+        
+        .header-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: center; /* 確保照片置中顯示 */
+            display: block; 
+        }
+
+        /* 楓葉飄落特效 */
+        .leaf-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .leaf {
+            position: absolute;
+            top: -20px;
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.7;
+            animation-name: leaf-fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        /* 定義楓葉與銀杏形狀的 SVG data URI */
+        .leaf.maple {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23D32F2F'%3E%3Cpath d='M17,12L15.3,10.3L17,7L13.7,8.7L12,7L10.3,8.7L7,7L8.7,10.3L7,12L10.3,13.7L9,17H15L13.7,13.7L17,12Z'/%3E%3C/svg%3E");
+        }
+        .leaf.gingko {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFA000'%3E%3Cpath d='M12,2C12,2 4,3 4,12C4,16 7,19 7,19L12,22L17,19C17,19 20,16 20,12C20,3 12,2 12,2Z'/%3E%3C/svg%3E");
+        }
+
+        @keyframes leaf-fall {
+            0% { transform: translateY(-20px) rotate(0deg) translateX(0px); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(300px) rotate(360deg) translateX(50px); opacity: 0; }
+        }
+        
+        /* Tab 按鈕 */
+        .side-tab-bar {
+            position: absolute;
+            bottom: 45px; 
+            right: 16px;
+            z-index: 30;
+            display: flex;
+            flex-direction: row;
+            gap: 8px; 
+        }
+        
+        .tab-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 9999px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem; 
+            box-shadow: 0 4px 10px rgba(93, 64, 55, 0.2);
+            transition: all 0.2s ease;
+        }
+        
+        .tab-button.active {
+            background-color: #D32F2F; /* Maple Red */
+            color: #ffffff;
+            box-shadow: 0 6px 15px rgba(211, 47, 47, 0.4); 
+            transform: scale(1.05);
+        }
+        
+        .tab-button:not(.active) {
+            background-color: #ffffff;
+            color: #FFB74D; /* Warm Orange light */
+        }
+
+        .app-main {
+            padding-top: 25px !important;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(93, 64, 55, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .animate-fade-in { animation: fadeIn 0.4s ease-out; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fab-shadow {
+            box-shadow: 0 4px 15px rgba(255, 160, 0, 0.5);
+        }
+
+        .note-content {
+            max-height: 2.5rem;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .note-content.expanded { max-height: 500px; }
+        
+        .expense-category-tag {
+            min-width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 漸層 Banner 改為秋季暖色 */
+        .expenses-banner {
+            background: linear-gradient(135deg, #D32F2F 0%, #FF6F00 100%);
+        }
+        
+        .date-selector-sticky {
+            background-color: #ffffff;
+            border-bottom: 1px solid #f0f0f0; 
+            z-index: 20; 
+            top: 0; 
+        }
+
+        /* 修正日期選中顏色 */
+        .date-active {
+            background-color: #D32F2F !important; /* Maple Red */
+            color: white !important;
+            border-color: #D32F2F !important;
+        }
+        
+        .date-inactive {
+            background-color: white;
+            color: #8D6E63; /* Light Brown */
+        }
+        
+        .date-inactive:hover {
+            background-color: #FFF3E0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app" class="app-container">
+
+    <div class="header-bg relative">
+        <div class="header-image-container relative">
+            <img src="banner.jpg" alt="九州賞楓自駕旅">
+            <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <div class="absolute bottom-6 left-6 text-white">
+                <h1 class="text-2xl font-bold shadow-black drop-shadow-md">九州賞楓自駕旅</h1>
+                <p class="text-sm opacity-90 drop-shadow-md">2025.12.13 - 12.21</p>
+            </div>
+        </div>
+        
+        <div class="leaf-layer" id="leafLayer">
+            <div v-for="n in 10" :key="n" class="leaf" 
+                 :class="n % 2 === 0 ? 'maple' : 'gingko'"
+                 :style="{ 
+                    left: Math.random() * 100 + '%', 
+                    animationDuration: (5 + Math.random() * 5) + 's', 
+                    animationDelay: (Math.random() * 5) + 's' 
+                 }">
+            </div>
+        </div> 
+        
+        <div class="side-tab-bar">
+            <button @click="currentTab = 'itinerary'" title="行程" :class="{'active': currentTab === 'itinerary'}" class="tab-button">
+                <i class="fa-solid fa-map-location-dot"></i>
+            </button>
+            <button @click="currentTab = 'info'" title="資訊" :class="{'active': currentTab === 'info'}" class="tab-button">
+                <i class="fa-solid fa-circle-info"></i>
+            </button>
+            <button @click="currentTab = 'shopping'" title="購物" :class="{'active': currentTab === 'shopping'}" class="tab-button">
+                <i class="fa-solid fa-basket-shopping"></i>
+            </button>
+            <button @click="currentTab = 'expenses'" title="花費" :class="{'active': currentTab === 'expenses'}" class="tab-button">
+                <i class="fa-solid fa-coins"></i>
+            </button>
+        </div>
+    </div>
+    
+    <main class="p-4 app-main">
+        
+        <div v-if="currentTab === 'itinerary'" class="animate-fade-in">
+            
+            <div class="flex overflow-x-auto hide-scrollbar space-x-3 pb-4 mb-2 snap-x px-1 sticky date-selector-sticky pt-1 -mx-4 px-4">
+                <div v-for="(day, index) in dates" :key="index" 
+                     @click="selectedDateIndex = index"
+                     class="snap-center flex-shrink-0 w-[58px] h-[68px] rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 border-2 shadow-sm"
+                     :class="selectedDateIndex === index ? 'date-active shadow-lg scale-105' : 'date-inactive border-white'">
+                    
+                    <span class="text-sm font-bold uppercase tracking-wider">{{ day.weekday }}</span> 
+                    <span class="text-xs font-medium opacity-70">{{ day.date }}</span> 
+                </div>
+            </div>
+
+            <div v-if="weatherData[selectedDateIndex]" class="mb-4 bg-autumn-cream border border-warm-orange/30 rounded-2xl p-4 flex justify-between items-center shadow-md">
+                <div class="flex items-start text-earth-brown space-x-4">
+                    <i :class="getWeatherIcon(weatherData[selectedDateIndex].condition)" class="text-4xl text-warm-orange"></i>
+                    <div class="pt-1">
+                        <span class="text-2xl font-extrabold leading-none">{{ weatherData[selectedDateIndex].temp }}°C</span>
+                        <span class="block text-xs text-stone-500 mt-1">{{ dates[selectedDateIndex].location }}</span> 
+                    </div>
+                </div>
+                <div class="text-right text-xs text-stone-600 pl-3">
+                    <span class="font-bold block text-earth-brown mb-1">{{ getWeatherDescription(weatherData[selectedDateIndex].condition) }}</span>
+                    
+                    <span v-if="dates[selectedDateIndex].hasCar" class="inline-block bg-matcha-green/10 text-matcha-green px-2 py-1 rounded-lg font-bold">
+                        <i class="fa-solid fa-car-side mr-1"></i> 租車自駕
+                    </span>
+                    <span v-else class="inline-block bg-slate-100 text-slate-500 px-2 py-1 rounded-lg font-bold">
+                        <i class="fa-solid fa-train-subway mr-1"></i> 大眾運輸
+                    </span>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div v-for="(item, idx) in currentItinerary" :key="item.id" class="relative group">
+                    
+                    <div v-if="idx > 0" class="pl-8 pb-2 flex items-center text-xs text-stone-400">
+                        <div class="h-6 w-0.5 bg-stone-200 absolute left-6 -top-3"></div>
+                        <i :class="getTransportIcon(currentItinerary[idx].transportType)" 
+                           class="mr-2 text-stone-300 cursor-pointer hover:text-maple-red transition-colors" 
+                           @click="openMapDirections(currentItinerary[idx - 1], item)">
+                        </i>
+                        <span class="font-bold">{{ item.travelTime || '約 20 分鐘' }}</span>
+                    </div>
+                    
+                    <div class="bg-white rounded-3xl p-5 card-shadow relative overflow-hidden flex items-start border border-orange-100">
+                        
+                        <div class="mr-4 flex flex-col items-center min-w-[50px]">
+                            <div class="p-2 rounded-full text-white shadow-md text-base mb-1" :class="getCategoryColor(item.category)">
+                                <i :class="getCategoryIcon(item.category)"></i>
+                            </div>
+                            <span v-if="item.startTime" class="text-xs font-bold text-stone-500 mt-1">{{ item.startTime }}</span>
+                        </div>
+
+                        <div class="flex-1 pb-1">
+                            <h3 class="text-lg font-bold text-earth-brown mb-1 leading-tight pr-8">{{ item.name }}</h3>
+                            
+                            <div class="text-sm text-stone-500 space-y-1.5 mt-2">
+                                <p v-if="item.hours" class="flex items-center"><i class="fa-regular fa-clock w-4 text-center mr-2 text-warm-orange"></i> {{ item.hours }}</p>
+                                <p v-if="item.price" class="flex items-center"><i class="fa-solid fa-ticket w-4 text-center mr-2 text-warm-orange"></i> {{ item.price }}</p>
+                                <p v-if="item.address" class="flex items-start"><i class="fa-solid fa-location-dot w-4 text-center mr-2 mt-1 text-warm-orange"></i> {{ item.address }}</p>
+                            </div>
+
+                            <div v-if="item.note && item.note.length > 0" class="mt-3 text-xs bg-autumn-cream p-2.5 rounded-lg border border-orange-100">
+                                <p class="text-stone-600 font-bold mb-1 flex items-center">
+                                    <i class="fa-solid fa-leaf text-matcha-green mr-2"></i> 筆記 / MapCode
+                                </p>
+                                <div class="note-content whitespace-pre-line" :class="{'expanded': item.isNoteExpanded}">{{ item.note }}</div>
+                                <button v-if="item.note.length > 50" @click="item.isNoteExpanded = !item.isNoteExpanded" class="text-maple-red font-bold mt-1 block">
+                                    {{ item.isNoteExpanded ? '收合' : '展開...' }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="absolute top-3 right-3 flex flex-col space-y-1">
+                            <button v-if="idx > 0" @click.stop="moveItineraryUp(item.id)" class="w-7 h-7 bg-stone-100 text-stone-500 rounded-full flex items-center justify-center text-xs hover:bg-stone-200" title="上移"><i class="fa-solid fa-arrow-up"></i></button>
+                            <button v-if="idx < currentItinerary.length - 1" @click.stop="moveItineraryDown(item.id)" class="w-7 h-7 bg-stone-100 text-stone-500 rounded-full flex items-center justify-center text-xs hover:bg-stone-200" title="下移"><i class="fa-solid fa-arrow-down"></i></button>
+                            
+                            <button @click.stop="openMap(item.address || item.name)" class="w-7 h-7 bg-warm-orange/10 text-warm-orange rounded-full flex items-center justify-center text-xs hover:bg-warm-orange hover:text-white transition-colors" title="導航">
+                                <i class="fa-solid fa-location-arrow"></i>
+                            </button>
+                            <button @click.stop="editItem(item)" class="w-7 h-7 bg-stone-100 text-stone-500 rounded-full flex items-center justify-center text-xs hover:bg-stone-200 transition-colors" title="編輯">
+                                <i class="fa-solid fa-pencil"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div v-if="currentItinerary.length === 0" class="text-center py-16 text-stone-300">
+                    <i class="fa-solid fa-map-location-dot text-5xl mb-3 text-stone-200"></i>
+                    <p class="text-sm">本日尚無行程<br>請點擊右下角新增</p>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="currentTab === 'info'" class="space-y-5 animate-fade-in">
+            
+            <div class="bg-gradient-to-r from-earth-brown to-stone-600 rounded-3xl p-6 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10 blur-2xl"></div>
+                <h3 class="font-bold text-lg mb-4 flex items-center relative z-10"><i class="fa-solid fa-calculator mr-2"></i> 匯率換算</h3>
+                <div class="flex items-center justify-between space-x-3 relative z-10">
+                    <div class="flex-1">
+                        <label class="text-[10px] text-orange-100 block mb-1 uppercase tracking-wider">JPY (日幣)</label>
+                        <input type="number" v-model="currencyInput" @input="calculateCurrency" class="w-full bg-white/20 border border-white/30 rounded-xl px-3 py-2.5 text-white placeholder-white/50 focus:outline-none focus:bg-white/30 text-lg font-bold" placeholder="¥">
+                    </div>
+                    <i class="fa-solid fa-arrow-right-arrow-left text-orange-200 mt-5"></i>
+                    <div class="flex-1">
+                        <label class="text-[10px] text-orange-100 block mb-1 uppercase tracking-wider">TWD (台幣)</label>
+                        <div class="w-full bg-white/10 rounded-xl px-3 py-2.5 text-white text-lg font-bold border border-transparent">
+                            $ {{ currencyResult }}
+                        </div>
+                    </div>
+                </div>
+                <p class="text-[10px] text-orange-200 mt-3 text-right relative z-10">匯率基準: 0.20</p>
+            </div>
+            
+            <div class="bg-white rounded-3xl p-5 card-shadow">
+                <h3 class="font-bold text-earth-brown mb-3 border-b border-stone-100 pb-2"><i class="fa-solid fa-plane-departure text-maple-red mr-2"></i> 航班資訊</h3>
+                <div class="space-y-4">
+                    <div class="bg-orange-50 rounded-xl p-3 border border-orange-100">
+                        <div class="flex justify-between text-sm font-bold text-earth-brown mb-1">
+                            <span>TPE 台北</span> <i class="fa-solid fa-plane text-xs text-orange-400"></i> <span>FUK 福岡</span>
+                        </div>
+                        <div class="flex justify-between text-xs text-stone-500">
+                            <span>08:00 (12/13)</span> <span>BR/CI?</span> <span>11:15</span>
+                        </div>
+                    </div>
+                    <div class="bg-orange-50 rounded-xl p-3 border border-orange-100">
+                        <div class="flex justify-between text-sm font-bold text-earth-brown mb-1">
+                            <span>FUK 福岡</span> <i class="fa-solid fa-plane text-xs text-orange-400"></i> <span>TPE 台北</span>
+                        </div>
+                        <div class="flex justify-between text-xs text-stone-500">
+                            <span>20:55 (12/21)</span> <span>BR/CI?</span> <span>22:40</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 card-shadow">
+                <h3 class="font-bold text-earth-brown mb-4 border-b border-stone-100 pb-3"><i class="fa-solid fa-hotel text-gingko-gold mr-2"></i> 住宿資訊</h3>
+                <ul class="space-y-5">
+                    <li v-for="hotel in hotels" class="border-b last:border-0 pb-4 last:pb-0 border-stone-100">
+                        <div class="flex justify-between items-start group">
+                            <div class="flex-1">
+                                <span class="font-bold block text-earth-brown text-lg">{{ hotel.name }}</span>
+                                <span class="text-xs text-stone-400 bg-stone-100 px-2 py-0.5 rounded-full inline-block mt-1">{{ hotel.date }}</span>
+                            </div>
+                            <button @click="openMap(hotel.name)" class="w-8 h-8 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center group-hover:bg-orange-500 group-hover:text-white transition-all"><i class="fa-solid fa-location-arrow text-xs"></i></button>
+                        </div>
+                        <div class="text-sm text-stone-500 mt-2 space-y-1">
+                            <p class="flex items-center"><i class="fa-solid fa-yen-sign w-4 text-center mr-2 text-stone-300"></i> {{ hotel.priceTWD }} (約 ¥{{ formatNumber(hotel.priceJPY) }})</p>
+                            <p class="flex items-start"><i class="fa-solid fa-map-pin w-4 text-center mr-2 mt-1 text-stone-300"></i> {{ hotel.area }}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 card-shadow">
+                <h3 class="font-bold text-earth-brown mb-3 border-b border-stone-100 pb-3"><i class="fa-solid fa-car text-matcha-green mr-2"></i> 租車資訊</h3>
+                <div class="text-sm space-y-3">
+                    <div class="flex justify-between">
+                        <span class="text-stone-500">期間</span>
+                        <span class="font-bold text-earth-brown">12/13 12:00 - 12/18 20:00</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-stone-500">取車</span>
+                        <span class="font-bold text-earth-brown text-right">天神渡邊通店</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-stone-500">MapCode</span>
+                        <span class="font-bold text-earth-brown">13 318 076*06</span>
+                    </div>
+                    <button @click="openMap('天神渡邊通店')" class="w-full mt-4 bg-matcha-green/10 text-matcha-green py-3 rounded-xl text-sm font-bold hover:bg-matcha-green/20 transition-colors flex items-center justify-center">
+                        <i class="fa-solid fa-diamond-turn-right mr-2"></i> 導航去取車點
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-red-50 rounded-3xl p-6 border border-red-100">
+                <h3 class="font-bold text-red-800 mb-4"><i class="fa-solid fa-kit-medical mr-2"></i> 緊急聯絡</h3>
+                <div class="grid grid-cols-2 gap-4 text-center">
+                    <a href="tel:110" class="bg-white py-3 rounded-xl shadow-sm text-red-600 font-bold block border border-red-100">警察 110</a>
+                    <a href="tel:119" class="bg-white py-3 rounded-xl shadow-sm text-red-600 font-bold block border border-red-100">救護 119</a>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="currentTab === 'shopping'" class="animate-fade-in">
+            <div class="grid grid-cols-2 gap-4">
+                <div v-for="(item, idx) in shoppingList" :key="idx" class="bg-white rounded-2xl p-3 card-shadow relative group">
+                    <div class="aspect-square bg-stone-50 rounded-xl mb-3 overflow-hidden relative border border-stone-100 flex items-center justify-center">
+                        <i class="fa-solid fa-bag-shopping text-3xl text-stone-200"></i>
+                        <button @click="removeShoppingItem(idx)" class="absolute top-2 right-2 bg-stone-800/60 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <p class="font-bold text-sm text-earth-brown truncate px-1">{{ item.name }}</p>
+                </div>
+                
+                <div v-if="shoppingList.length === 0" class="col-span-2 text-center py-16 text-stone-300">
+                    <i class="fa-solid fa-basket-shopping text-5xl mb-3 text-stone-200"></i>
+                    <p class="text-sm">購物清單空白<br>請點擊右下角新增</p>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="currentTab === 'expenses'" class="animate-fade-in">
+            <div class="expenses-banner text-white rounded-3xl p-8 mb-6 relative overflow-hidden shadow-lg">
+                <div class="absolute -right-10 -top-10 bg-white/10 w-48 h-48 rounded-full blur-3xl"></div>
+                <div class="absolute -left-10 -bottom-10 bg-yellow-400/20 w-40 h-40 rounded-full blur-2xl"></div>
+                <p class="text-sm text-orange-100 mb-2 relative z-10">預估總花費 (JPY)</p>
+                <h2 class="text-5xl font-bold relative z-10 tracking-tight">¥ {{ formatNumber(totalExpensesJPY) }}</h2>
+                <p class="text-sm text-right mt-2 opacity-80 relative z-10">約 NT$ {{ formatNumber(totalExpensesTWD) }}</p>
+            </div>
+
+            <div class="bg-white rounded-t-3xl min-h-[500px] p-6 shadow-[0_-10px_40px_rgba(93,64,55,0.05)] -mx-4 px-8">
+                <h3 class="font-bold text-earth-brown mb-5 flex items-center"><i class="fa-solid fa-receipt text-stone-300 mr-2"></i>支出紀錄</h3>
+                <div class="space-y-5">
+                    <div v-for="(exp, idx) in expenses" :key="idx" class="flex items-center justify-between border-b border-stone-50 pb-4 last:border-0">
+                        <div class="flex items-center">
+                            <div class="expense-category-tag mr-4 text-white" :class="getCategoryColor(exp.category)">
+                                {{ getCategoryLabel(exp.category) }}
+                            </div>
+                            <div>
+                                <p class="font-bold text-stone-700 text-sm mb-0.5">{{ exp.name }}</p>
+                                <p class="text-[10px] text-stone-400 uppercase tracking-wide">{{ exp.date }}</p>
+                            </div>
+                        </div>
+                        <div class="text-right flex items-center">
+                            <p class="font-bold text-stone-700
